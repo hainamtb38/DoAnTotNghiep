@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Insert Sample Data into Submissions Collection",
+			"type": "shell",
+			"command": "mongo --eval \"db.submissions.insert({ userId: 'sampleUserId', courseId: 'sampleCourseId', session: 1, uploadedAt: new Date(), metadata: { fileName: 'sampleFile.txt', fileSize: 1024 } })\"",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

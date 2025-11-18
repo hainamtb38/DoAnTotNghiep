@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String?  @unique
+  password  String
+  role      String   @default("student") // "student" | "teacher" | "admin"
+  createdAt DateTime @default(now())
+  assignments Assignment[]
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Assignment {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String?  // e.g. link to file or text
+  score       Float?   // AI score
+  feedback    String?  // AI feedback text
+  submittedAt DateTime @default(now())
+  userId      Int
+  courseId    Int?
+  user        User     @relation(fields: [userId], references: [id])
+}
